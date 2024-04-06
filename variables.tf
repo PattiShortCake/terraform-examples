@@ -36,7 +36,7 @@ variable "s3_logging_destination_key_prefix" {
 
 variable "s3_inventory_bucket_arn" {
   default = {
-    dev = "arn:aws:s3:::patti-tf-test-bucket"
+    dev = "arn:aws:s3:::patti-server-logging"
   }
 }
 

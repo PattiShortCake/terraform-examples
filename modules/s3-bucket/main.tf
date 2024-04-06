@@ -45,6 +45,18 @@ resource "aws_s3_bucket_inventory" "this_bucket_inventory" {
   optional_fields = [
     "Size",
     "LastModifiedDate",
-    "EncryptionStatus"
+    "StorageClass",
+    "ETag",
+    "IsMultipartUploaded",
+    "ReplicationStatus",
+    "EncryptionStatus",
+    "ObjectLockRetainUntilDate",
+    "ObjectLockMode",
+    "ObjectLockLegalHoldStatus",
+    "IntelligentTieringAccessTier",
+    "BucketKeyStatus",
+    "ChecksumAlgorithm",
+    "ObjectAccessControlList",
+    "ObjectOwner"
   ]
 }

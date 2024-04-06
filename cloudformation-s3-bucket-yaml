@@ -1,0 +1,50 @@
+# Still need to figure out how to use specific key for InventoryConfigurations Destination
+
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+    S3BucketNameParameter:
+        Type: String
+        Description: A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name. The bucket name must contain only lowercase letters, numbers, periods (.), and dashes (-) and must follow Amazon S3 bucket restrictions and limitations.
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+        BucketEncryption:
+            ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                     KMSMasterKeyID: alias/new_key
+                     SSEAlgorithm: aws:kms
+        BucketName: !Ref S3BucketNameParameter
+        InventoryConfigurations:
+            - Id: !Join [ "_", [ !Ref S3BucketNameParameter, "inventory" ]]
+              Destination:
+                  BucketArn: arn:aws:s3:::patti-tf-test-bucket
+                  Format: CSV
+                  Prefix: inventory/
+              Enabled: True
+              IncludedObjectVersions: Current
+              OptionalFields:
+                  - Size
+                  - LastModifiedDate
+                  - StorageClass
+                  - ETag
+                  - IsMultipartUploaded
+                  - ReplicationStatus
+                  - EncryptionStatus
+                  - ObjectLockRetainUntilDate
+                  - ObjectLockMode
+                  - ObjectLockLegalHoldStatus
+                  - IntelligentTieringAccessTier
+                  - BucketKeyStatus
+                  - ChecksumAlgorithm
+                  - ObjectAccessControlList
+                  - ObjectOwner
+              ScheduleFrequency: Daily
+        LoggingConfiguration:
+            DestinationBucketName: patti-server-logging
+            LogFilePrefix: log/
+        Tags:
+            - Key: CreatedBy
+              Value: me
+            - Key: Environment
+              Value: dev
