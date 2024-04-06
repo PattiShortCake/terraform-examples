@@ -42,5 +42,5 @@ variable "s3_inventory_bucket_arn" {
 
 variable "s3_inventory_kms_key_arn" {
   description = "Specifies the use of SSE-KMS to encrypt delivered inventory reports"
-  type = string
+  type        = string
 }
